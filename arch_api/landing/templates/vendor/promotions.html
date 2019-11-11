@@ -1,0 +1,56 @@
+{% extends 'vendor/vendor.html' %}
+
+{% load static %}
+{% load tags %}
+
+{% block pageName %}
+Discount Manager
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="table-container">
+            <div class="table-title">
+                Active Discounts <a href="#"><span class="fas fa-plus"></span></a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Group Size</th>
+                        <th scope="col">Dates</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                {% currentDiscounts user.venues.all.0 %}
+            </table>
+        </div>
+        <div class="table-container">
+            <div class="table-title">
+                Inactive Discounts <a href="#"><span class="fas fa-plus"></span></a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Group Size</th>
+                        <th scope="col">Dates</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                {% inactiveDiscounts user.venues.all.0 %}
+            </table>
+        </div>
+        {% modalEdit user.venues.all.0 %}
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#promotions-link").addClass("active")
+    })
+</script>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Arch Vendor
+{% endblock %}
+
+{% load static %}
+
+{% block headAdditions %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="{% static 'vendor/throttledresize.js' %}"></script>
+{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'vendor/style.css' %}" type="text/css">
+{% endblock %}
+
+{% block body %}
+{% if user.venues.count == 0 %}
+<h2>How'd you get here?</h2>
+{% else %}
+<div id="wrapper" class="toggled">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    <img src="{% static 'landing/images/logo.png' %}" />
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'promotions' %}" id="promotions-link">Promotions</a>
+            </li>
+            <li>
+                <a href="{% url 'analytics' %}" id="analytics-link">Analytics</a>
+            </li>
+            <li>
+                <a href="#" id="contact-link">Contact</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="title-container">
+                <button title="Toggle Navigation" class="btn btn-outline-dark" id="menu-toggle"><i class="fas fa-times"
+                        id="menu-toggle-text"></i></button>
+                <span class="venue-heading" id=""><span class="venue-name">{{ user.venues.all.0 }}</span> - {% block pageName %}{% endblock %}</span>
+            </div>
+            <!-- <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a> -->
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var needsToggle = false;
+    $(document).ready(function () {
+        if ($(window).width() < 768) {
+            toggleNavigation();
+        }
+    });
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        toggleNavigation();
+    });
+    $(window).on("resize", function (event) {
+        if ($(window).width() < 768) {
+            $("#wrapper").removeClass("toggled");
+            $("#menu-toggle-text").addClass("fa-bars");
+            $("#menu-toggle-text").removeClass("fa-times");
+        }
+    });
+    function toggleNavigation() {
+        $("#wrapper").toggleClass("toggled");
+        $("#menu-toggle-text").toggleClass("fa-bars");
+        $("#menu-toggle-text").toggleClass("fa-times");
+    }
+</script>
+{% endif %}
+{% endblock %}

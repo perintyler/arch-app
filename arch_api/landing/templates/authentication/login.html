@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block body %}
+<div class="mx-auto" style="width: 320px; position:relative; top:40px" id="vendorLogin">
+
+        {% if user.is_authenticated %}
+
+            <h3>You're already logged in!</h3>
+            <div class="alert alert-info">
+                <p>It looks like you're already logged in as <strong>{{ user.username }}</strong>. If this doesn't look right to you, click <a href="{% url 'logout' %}">here</a> to log out.</p>
+                <p>Otherwise, click <a href="/vendor">here</a> to proceed to your venue's homepage.</p>
+            </div>
+
+        {% else %}
+
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <div class="alert alert-info">Your account doesn't have access to this page. To proceed, please login with an account that has access.</div>
+                {% else %}
+                    <div class="alert alert-info">Please login to see this page.</div>
+                {% endif %}
+            {% endif %}
+            <h2>Vendor Login</h2>
+            <form method="post" action="{% url 'login' %}" novalidate="novalidate">
+                {% csrf_token %}
+                {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field }}
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% if form.non_field_errors %}Username and password didn't match. Try again or click
+                            <a href="{% url 'reset-password' %}">here</a>
+                            to reset your password.
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {% if form.is_bound %}
+                            {% if field.errors %}
+                                {% render_field field class="form-control is-invalid" %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                {% render_field field class="form-control" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field field class="form-control" %}
+                        {% endif %}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+            <p>
+                <a href="{% url 'reset-password' %}">Forgot your login?</a>
+            </p>
+
+        {% endif %}
+
+    {% endblock %}
+</div>

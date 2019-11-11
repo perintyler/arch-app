@@ -1,0 +1,1 @@
+web: gunicorn arch_api.wsgi --log-file -

@@ -1,0 +1,128 @@
+{% extends 'vendor/vendor.html' %}
+
+{% load static %}
+{% load tags %}
+
+{% block pageName %}
+Analytics
+{% endblock %}
+
+{% block content %}
+<div class="row analytics-header">
+    <div class="col">
+        <h3>Quick Stats</h3>
+    </div>
+</div>
+<div class="row analytics-cardset">
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-header">
+                Total Events
+            </div>
+            <div class="card-body">
+                {{ user.venues.all.0.events.all.count }}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-header">
+                Total Users
+            </div>
+            <div class="card-body">
+                {% getNumUsers user.venues.all.0 %}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-header">
+                Total Claims
+            </div>
+            <div class="card-body">
+                {% getNumClaims user.venues.all.0 %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row analytics-header">
+    <div class="col">
+        <h3>User Breakdown</h3>
+    </div>
+</div>
+<div class="row analytics-cardset">
+    <div class="col-12 col-lg-6">
+        <div class="card chart-card">
+            <div class="card-header">
+                Genders
+            </div>
+            <div class="card-body chart-wrap">
+                <div class="chart-div" id="genderPieChart">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="card chart-card">
+            <div class="card-header">
+                Ages
+            </div>
+            <div class="card-body chart-wrap">
+                <div class="chart-div" id="agePieChart">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(renderCharts);
+
+        function renderCharts() {
+            var c = ['#F5B7B1', '#D2B4DE', '#AED6F1', '#A3E4D7']
+            var genderData = google.visualization.arrayToDataTable([
+                ['Gender', 'Count'],
+                {% getGenders user.venues.all.0 %}
+            ]);
+            var genderOptions = {
+                colors: c
+            };
+            var genderChart = new google.visualization.PieChart(document.getElementById('genderPieChart'));
+            genderChart.draw(genderData, genderOptions);
+
+            var ageData = google.visualization.arrayToDataTable([
+                ['Age', 'Count'],
+                {% getAges user.venues.all.0 %}
+            ]);
+            var ageOptions = {
+                colors: c
+            };
+            var ageChart = new google.visualization.PieChart(document.getElementById('agePieChart'));
+            ageChart.draw(ageData, ageOptions);
+        }
+
+        $(window).on("resize", function (event) {
+            var genderOptions = {
+                width: '100%',
+                height: '100%',
+            };
+            var ageOptions = genderOptions;
+
+            var genderData = google.visualization.arrayToDataTable([]);
+            var ageData = genderData;
+            renderCharts(genderOptions, ageOptions, genderData, ageData);
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#analytics-link").addClass("active")
+    })
+</script>
+{% endblock %}

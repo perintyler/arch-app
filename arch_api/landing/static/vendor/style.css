@@ -1,0 +1,248 @@
+body {
+  overflow-x: hidden;
+  font-family: "PT Sans", sans-serif;
+}
+
+:root {
+  /* blue that I like */
+  --arch-teal: #00d0fe;
+
+  /* purple */
+  /* --arch-teal: #9B59B6; */
+
+  /* red */
+  /* --arch-teal: #E74C3C; */
+
+  /* actual arch teal */
+  /* --arch-teal: #00e8f2; */
+}
+
+#wrapper {
+  padding-left: 0;
+
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  font-size: 20px;
+  font-weight: lighter;
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #000;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#sidebar-wrapper .active {
+  color: white;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-brand {
+  padding-top: 10px;
+  padding-bottom: 80px;
+}
+
+.sidebar-brand img {
+  position: relative;
+  max-width: 60%;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+@media (min-width: 768px) {
+  #wrapper {
+    padding-left: 0;
+  }
+  #wrapper.toggled {
+    padding-left: 250px;
+  }
+  #sidebar-wrapper {
+    width: 0;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+  }
+  #page-content-wrapper {
+    padding: 20px;
+    position: relative;
+  }
+  #wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+  }
+}
+
+/* my stuff */
+.title-container {
+  max-height: 40px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.title-container button {
+  align-items: middle;
+  border: none;
+}
+
+.title-container button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.venue-heading {
+  margin-left: 20px;
+  font-size: 30px;
+}
+
+.venue-name {
+  font-weight: bolder;
+}
+
+.table-title {
+  font-size: 24px;
+}
+
+.table-title span {
+  font-size: 16px;
+  vertical-align: middle;
+  color: var(--arch-teal);
+  margin-left: 5px;
+  padding-bottom: 5px;
+}
+
+.table-container {
+  margin-top: 30px;
+}
+
+td a {
+  color: #777;
+}
+
+td a:hover {
+  color: var(--arch-teal);
+}
+
+.popover input {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+
+  /*optional*/
+  font-family: arial, sans-serif; /*input has OS specific font-family*/
+  color: #069;
+  cursor: pointer;
+}
+
+.popover input:hover {
+  text-decoration: underline;
+}
+
+.popover a {
+  color: #069;
+}
+
+.modal-body label {
+  font-size: 14pt;
+}
+
+.analytics-header {
+  margin-top: 20px;
+}
+
+.analytics-cardset .card {
+  margin-top: 20px;
+}
+
+.analytics-cardset .card-body {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20pt;
+}
+
+.chart-wrap {
+  position: relative;
+  padding: 0;
+}
+
+.chart-div {
+  width:100%;
+  height:100%;
+  min-height: 300px;
+  max-height: 400px;
+}
