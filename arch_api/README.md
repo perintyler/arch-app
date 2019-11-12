@@ -1,5 +1,6 @@
 # arch_api
 
+Django Rest backend. Also hosts the website
 
 ## Endpoints
 
