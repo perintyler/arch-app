@@ -16,7 +16,7 @@ Users were authenticated with Firebase, allowing them to log-in with their Faceb
 
 <br>
 
-<h4 align="center"> Arch App no longer mantained, but screenshots from its days in production are displayed below. </h3>
+<h4 align="center"> Arch App is no longer mantained, but screenshots from its days in production are displayed below. </h3>
 
 <br>
 
